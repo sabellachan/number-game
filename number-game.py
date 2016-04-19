@@ -1,30 +1,38 @@
 from random import choice
 
 
-random_number = choice(range(1, 101))
+random_number = int(choice(range(1, 101)))
 
-guess = raw_input("Please guess a number between 1-100.")
+raw_guess = raw_input("Please guess a number between 1-100.")
 
 guesses = []
 
-while guess != random_number:
-    if guess > 100:
-        # tell the user that this number is out of range
-        # ask for another guess
-    elif guess < 0:
-        # tell the user that this number is out of range
-        # ask for another guess
-    else:
-        if guess in guesses:
-            # tell the user that they've already guessed this
-            # ask for another guess
-        elif guess > random_number:
-            # tell the user that the number is too high
-            # add the number to guesses
-            # ask for another guess
-        elif guess < random_number:
-            # tell the user that the number is too low
-            # add the number to guesses
-            # ask for another guess
+try:
+    guess = int(raw_guess)
 
-print "You win! It took {} guesses".format(len(guesses))
+    while guess != random_number:
+
+        if guess > 100:
+            print "This guess is out of range."
+            guess = raw_input("Please guess a number between 1-100.")
+        elif guess < 0:
+            print "This guess is out of range."
+            guess = raw_input("Please guess a number between 1-100.")
+        else:
+            if guess in guesses:
+                print "You have already guessed this number."
+                guess = raw_input("Please guess another number between 1-100.")
+            elif guess > random_number:
+                print "Your guess is too high."
+                guesses.append(guess)
+                guess = raw_input("Please guess another number between 1-100.")
+            elif guess < random_number:
+                print "Your guess is too low."
+                guesses.append(guess)
+                guess = raw_input("Please guess another number between 1-100.")
+
+    print "You win! It took {} guesses".format(len(guesses))
+
+except ValueError:
+    print "This is not a number."
+    raw_guess = raw_input("Please guess a number between 1-100.")
