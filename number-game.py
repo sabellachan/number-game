@@ -3,9 +3,7 @@
 from random import randint
 
 
-def number_game(raw_guess, random_number):
-
-    guesses = []
+def number_game(raw_guess, random_number, guesses=[]):
 
     while True:
         try:
@@ -13,10 +11,11 @@ def number_game(raw_guess, random_number):
             break
 
         except ValueError:
-            print "This is not a number."
+            raw_guess = raw_input("This is not a number. Please guess a number between 1-100: ")
+            number_game(raw_guess, random_number)
 
     # base case
-    if raw_guess == random_number:
+    if guess == random_number:
         print "You win! It took {} guesses".format(len(guesses))
 
     else:
@@ -25,7 +24,7 @@ def number_game(raw_guess, random_number):
             raw_guess = raw_input("This guess is out of range. Please guess a number between 1-100: * ")
             print random_number
             number_game(raw_guess, random_number)
-        elif guess < 0:
+        elif guess < 1:
             raw_guess = raw_input("This guess is out of range. Please guess a number between 1-100: ** ")
             print random_number
             number_game(raw_guess, random_number)
@@ -34,14 +33,17 @@ def number_game(raw_guess, random_number):
                 # print guesses
                 raw_guess = raw_input("You have already guessed this number. Please guess another number between 1-100: ")
                 print random_number
+                print guesses
                 number_game(raw_guess, random_number)
             elif guess > random_number:
                 guesses.append(guess)
+                print guesses
                 raw_guess = raw_input("Your guess is too high. Please guess another number between 1-100: ")
                 print random_number
                 number_game(raw_guess, random_number)
             elif guess < random_number:
                 guesses.append(guess)
+                print guesses
                 raw_guess = raw_input("Your guess is too low. Please guess another number between 1-100: ")
                 print random_number
                 number_game(raw_guess, random_number)
